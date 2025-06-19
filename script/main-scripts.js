@@ -131,7 +131,7 @@ function openPreview(imgElement) {
         subtract += 1;
     }
     if (icons[i] === imgElement) {
-        galleryText.innerHTML = `${i+1}/${icons.length - hidden_icons.length}`;
+        galleryText.innerHTML = `${i+1 - subtract}/${icons.length - hidden_icons.length}`;
         break;
     }
   }
