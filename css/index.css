@@ -558,7 +558,7 @@ button {
 
 #view-hidden-files {
   position: absolute;
-  right: 0;
+  right: 30px;
   top: 100px;
   width: 180px;
   height: 40px;
