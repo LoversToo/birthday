@@ -168,7 +168,7 @@ function closePreview() {
   galleryBack.onclick = goHome
   const clone = document.getElementsByClassName("clone-preview")[0]
   if (lastThumbnailElement == document.getElementById("birthday-candle")) {
-    clone.src = "img/gallery/blown-candle.jpg";
+    clone.src = "img/gallery/blown-candle.png";
     lastThumbnailElement.src = "img/gallery/blown-candle.png";
     updateCheckFlag()
   }
