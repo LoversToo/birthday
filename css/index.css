@@ -777,6 +777,9 @@ button {
 
 #files-keyboard {
   z-index: 2;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
 #files-message {
