@@ -122,7 +122,7 @@ function openPreview(imgElement) {
   const galleryBack = document.getElementById("galleryBack")
   const galleryText = document.getElementById("galleryText")
   const icons = document.getElementsByClassName("gallery-icon");
-  const hidden_icons = document.querySelector('.gallery-icon.hidden');
+  const hidden_icons = document.querySelectorAll(".gallery-icon.hidden");
   lastThumbnailRect = imgRect;
   lastThumbnailElement = imgElement;
   for (let i = 0; i < icons.length; i++) {
