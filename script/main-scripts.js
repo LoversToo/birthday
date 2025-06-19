@@ -125,7 +125,11 @@ function openPreview(imgElement) {
   const hidden_icons = document.querySelectorAll(".gallery-icon.hidden");
   lastThumbnailRect = imgRect;
   lastThumbnailElement = imgElement;
+  let subtract = 0;
   for (let i = 0; i < icons.length; i++) {
+    if (hidden_icons.contains(icons[i])) {
+        subtract += 1;
+    }
     if (icons[i] === imgElement) {
         galleryText.innerHTML = `${i+1}/${icons.length - hidden_icons.length}`;
         break;
