@@ -122,19 +122,23 @@ function openPreview(imgElement) {
   const galleryBack = document.getElementById("galleryBack")
   const galleryText = document.getElementById("galleryText")
   const icons = document.getElementsByClassName("gallery-icon");
-  const hidden_icons = document.querySelectorAll(".gallery-icon.hidden");
+  const hidden_icons = Array.from(document.querySelectorAll(".gallery-icon.hidden"));
+    
   lastThumbnailRect = imgRect;
   lastThumbnailElement = imgElement;
+    
   let subtract = 0;
+    
   for (let i = 0; i < icons.length; i++) {
-    if (hidden_icons.contains(icons[i])) {
-        subtract += 1;
+    if (hidden_icons.includes(icons[i])) {
+      subtract += 1;
     }
     if (icons[i] === imgElement) {
-        galleryText.innerHTML = `${i+1 - subtract}/${icons.length - hidden_icons.length}`;
-        break;
+      galleryText.innerHTML = `${i + 1 - subtract}/${icons.length - hidden_icons.length}`;
+    break;
     }
   }
+
   galleryBack.onclick = closePreview
   const clone = imgElement.cloneNode();
   clone.classList.add("clone-preview");
