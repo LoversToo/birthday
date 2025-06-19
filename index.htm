@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fully Scalable 9:19 Layout</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <div class="fixed-container scaled" id="layout">
+      <div id="bg1" class="background-layer"></div>
+      <div id="bg2" class="background-layer"></div>
+      <div class="content-overlay">
+        <header>
+          <div class="row">
+            <p id="time"></p>
+            <div class="other-icons row-items">
+              <img src="img/battery.png" class="battery-img">
+              <p class="battery">51%</p>
+            </div>
+          </div>
+        </header>
+        <main></main>
+        <template id="home">
+          <div class="app-grid">
+            <div class="app-icon" id="fullScreen" onclick="toggleFullScreen()">
+              <img src="img/circle.png" alt="Settings">
+              <p id="fullScreenText">Fullscreen</p>
+            </div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon" data-page="cryptogram" data-bg="url(img/white.png)" onclick="loadPage(this)">
+              <img src="img/cryptogram.png" alt="Cryptogram">
+              <p>Cryptogram Game</p>
+            </div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon" data-page="notes" data-bg="url(img/black.png)" onclick="loadPage(this)">
+              <img src="img/notes.png" alt="Notes">
+              <p>Notes</p>
+            </div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon" data-page="tiledom" data-bg="url(img/tiledomBg.png)" onclick="loadPage(this)">
+              <img src="img/tiledom.webp" alt="Tiledom">
+              <p>Tiledom</p>
+            </div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon" data-page="gallery" data-bg="url(img/black.png)" onclick="loadPage(this)">
+              <img src="img/gallery.png" alt="Gallery">
+              <p>Gallery</p>
+            </div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon"></div>
+            <div class="app-icon" data-page="browser" data-bg="url(img/dark.png)" onclick="loadPage(this)">
+              <img src="img/browser.webp" alt="Browser">
+              <p>Browser</p>
+            </div>
+            <div class="app-icon" data-page="files" data-bg="url(img/grey.png)" onclick="loadPage(this)">
+              <img src="img/files.webp" alt="Files">
+              <p>Files</p>
+            </div>
+            <div class="app-icon"></div>
+          </div>
+        </template>
+        <template id="page-tiledom">
+          <div class="tiledom-loading-wrapper">
+            <div class="loading-circle"></div>
+          </div>
+        </template>
+        <template id="page-gallery">
+          <div class="page-gallery" id="gallery-full">
+            <div class="row gallery-header">
+              <img id="galleryBack" src="img/back.png" class="battery-img" onclick="goHome()">
+              <p id="galleryText">All Photos</p>
+            </div>
+            <div class="gallery-main">
+              <div class="gallery-grid">
+                <img src="img/gallery/legs.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/red.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/orange.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/yellow.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/indigo.png" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/green.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/broski.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/korean_ugleh_bruh.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/violet.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img src="img/gallery/blue.jpg" class="gallery-icon" onclick="openPreview(this)">
+                <img id="screenshot" src="img/gallery/screenshot.png" class="gallery-icon hidden" onclick="openPreview(this)">
+                <img id="birthday-candle" src="img/gallery/blow-candle.png" class="gallery-icon hidden" onclick="openPreview(this)">
+                <img id="blown-birthday-candle" src="img/gallery/blown-candle.png" class="gallery-icon hidden" onclick="openPreview(this)">
+              </div>
+            </div>
+          </div>
+        </template>
+        <template id="page-notes">
+          <div>
+            <p id="notes-text">Notes</p>
+          </div>
+          <div id="notes-main">
+            <div class="notes-snippet">
+              <div class="notes-heading">
+                <p>To-do list</p>
+              </div>
+              <div class="notes-body">
+                <p>Watch youtube tomorrow</p>
+              </div>
+              <div class="notes-date">
+                <p>June 20, 2025</p>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template id="page-browser">
+          <div id="browser-heading" class="row">
+            <div id="browser-searchbar">
+              <p id="browser-search">https://www.google.com/search?q=bf+says+im+cute</p>
+            </div>
+          </div>
+          <div id="browser-loading">
+            <div class="browser-loading-wrapper">
+              <div class="browser-loading-circle"></div>
+            </div>
+          </div>
+          <div id="browser-main-error">
+            <img id="browser-mascot" src="img/error.png">
+            <p id="error-heading">Aw, snap!</p>
+            <p id="error-message">Something went wrong when displaying this webpage</p>
+          </div>
+          <div id="browser-main-youtube">
+            <video controls width="70%" height="auto">
+              <source src="vid/vigenere_tutorial.mp4" type="video/mp4">
+              <track src="subs/cipher.vtt" kind="captions" srclang="en" label="English">
+              Your browser does not support the video tag.
+            </video>
+            <p style="color: white">Vigenere Cipher Tutorial</p>
+          </div>
+          <div id="browser-keyboard">
+            <div class="keyboard">
+              <div class="keyboard-row">
+                <button class="key" onclick="insertChar('q')">q</button>
+                <button class="key" onclick="insertChar('w')">w</button>
+                <button class="key" onclick="insertChar('e')">e</button>
+                <button class="key" onclick="insertChar('r')">r</button>
+                <button class="key" onclick="insertChar('t')">t</button>
+                <button class="key" onclick="insertChar('y')">y</button>
+                <button class="key" onclick="insertChar('u')">u</button>
+                <button class="key" onclick="insertChar('i')">i</button>
+                <button class="key" onclick="insertChar('o')">o</button>
+                <button class="key" onclick="insertChar('p')">p</button>
+              </div>
+              <div class="keyboard-row">
+                <button class="key" onclick="insertChar('a')">a</button>
+                <button class="key" onclick="insertChar('s')">s</button>
+                <button class="key" onclick="insertChar('d')">d</button>
+                <button class="key" onclick="insertChar('f')">f</button>
+                <button class="key" onclick="insertChar('g')">g</button>
+                <button class="key" onclick="insertChar('h')">h</button>
+                <button class="key" onclick="insertChar('j')">j</button>
+                <button class="key" onclick="insertChar('k')">k</button>
+                <button class="key" onclick="insertChar('l')">l</button>
+              </div>
+              <div class="keyboard-row">
+                <button class="key" onclick="insertChar('z')">z</button>
+                <button class="key" onclick="insertChar('x')">x</button>
+                <button class="key" onclick="insertChar('c')">c</button>
+                <button class="key" onclick="insertChar('v')">v</button>
+                <button class="key" onclick="insertChar('b')">b</button>
+                <button class="key" onclick="insertChar('n')">n</button>
+                <button class="key" onclick="insertChar('m')">m</button>
+                <button class="key backspace" onclick="backspace()">⌫</button>
+              </div>
+              <div class="keyboard-row">
+                <button class="key" onclick="scrollSearch(-20)">←</button>
+                <button class="key space" onclick="insertChar(' ')">English</button>
+                <button class="key" onclick="scrollSearch(20)">→</button>
+                <button class="key" onclick="insertChar('.')">.</button>
+                <button class="key enter" onclick="submitSearch()">🔎︎</button>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template id="page-cryptogram">
+          <div id="cryptogram-full">
+          <div id="cryptogram-heading">
+            <p class="geologica-bold">Level 143</p>
+          </div>
+          <div id="cryptogram-body">
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">H</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+              <div class="cryptogram-space">
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">H</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">U</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">F</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">M</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">U</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">O</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">F</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells-immune geologica-bold">
+                  <p>,</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">O</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">F</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">H</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">M</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">C</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">U</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">F</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">M</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">V</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">H</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells-immune geologica-bold">
+                  <p>,</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">U</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">F</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">M</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">G</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">F</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells-immune geologica-bold">
+                  <p>.</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">H</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">W</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">U</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells-immune geologica-bold">
+                  <p>;</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+<div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">B</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells-immune geologica-bold">
+                  <p>,</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Q</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">O</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">T</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">X</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">N</p>
+                </div>
+              </div>
+              <div class="cryptogram-space"></div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">W</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">A</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">C</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells-immune geologica-bold">
+                  <p>,</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">W</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">J</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">V</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">E</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Z</p>
+                </div>
+              </div>
+            </div>
+            <div class="cryptogram-row">
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">Y</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">L</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">P</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">K</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells" onclick="focusCell(this)">
+                  <p></p>
+                </div>
+                <div class="cryptogram-codes">
+                  <p class="geologica-bold">F</p>
+                </div>
+              </div>
+              <div class="cryptogram-letters">
+                <div class="cryptogram-cells-immune geologica-bold">
+                  <p>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="cryptogram-keyboard">
+            <div id="cryptogram-keyboard-class" class="keyboard cryptogram-keyboard">
+              <div class="keyboard-row">
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('Q')">Q</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('W')">W</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('E')">E</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('R')">R</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('T')">T</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('Y')">Y</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('U')">U</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('I')">I</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('O')">O</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('P')">P</button>
+              </div>
+              <div class="keyboard-row">
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('A')">A</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('S')">S</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('D')">D</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('F')">F</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('G')">G</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('H')">H</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('J')">J</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('K')">K</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('L')">L</button>
+              </div>
+              <div class="keyboard-row">
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('Z')">Z</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('X')">X</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('C')">C</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('V')">V</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('B')">B</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('N')">N</button>
+                <button class="key cryptogram-key geologica-bold" onclick="inputLetter('M')">M</button>
+                <button class="key backspace geologica-bold" onclick="deleteLetter()">⌫</button>
+              </div>
+              <div class="keyboard-row">
+                <button class="key cryptogram-key geologica-bold" onclick="previousCell()">←</button>
+                <button class="key cryptogram-key geologica-bold" onclick="nextCell()">→</button>
+              </div>
+            </div>
+            <div id="more-levels">
+              <p class="geologica-bold">You solved it!</p>
+              <p>More levels will come soon...</p>
+            </div>
+            <div id="black-bar"></div>
+          </div>
+          </div>
+        </template>
+        <template id="page-files">
+          <div id="files-full">
+            <div id="files-heading" class="row">
+              <div id="files-left" class="row no-space-between">
+                <img id="files-back" class="battery-img" src="img/back.png" onclick="closeFolder()">
+                <p id="files-current">Internal Storage</p>
+              </div>
+              <img id="files-dots" class="battery-img" src="img/dots.png">
+              <div id="view-hidden-files" class="row no-space-neewteb view-hidden">
+                <div class="radio-circle" id="radio-indicator" onclick="showHiddenFiles()"></div>
+                <p id="hidden-files-text" onclick="showHiddenFiles()">Show hidden files</p>
+              </div>
+            </div>
+            <div id="files-body">
+              <div id="folder-back" class="file-entry row hidden birthday videos downloads dcim hannah alphabets" onclick="closeFolder()">
+                <div class="file-entry-name row">
+                  <img src="img/folder_back.png" class="entry-img">
+                  <p>...</p>
+                </div>
+              </div>
+              <div id="birthday-folder" class="file-entry row main view-hidden" onclick="birthdayFunction(this)">
+                <div class="file-entry-name row">
+                  <img id="birthday-icon" src="img/folder_lock.png" class="entry-img">
+                  <p>.birthday</p>
+                </div>
+              </div>
+              <div id="downloads-folder" class="file-entry row main" onclick="openFolder(this)">
+                <div class="file-entry-name row">
+                  <img src="img/folder.png" class="entry-img">
+                  <p>Downloads</p>
+                </div>
+              </div>
+              <div id="dcim-folder" class="file-entry row main" onclick="showError()">
+                <div class="file-entry-name row">
+                  <img src="img/folder.png" class="entry-img">
+                  <p>DCIM</p>
+                </div>
+              </div>
+              <div id="videos-folder"  class="file-entry row main" onclick="openFolder(this)">
+                <div class="file-entry-name row">
+                  <img src="img/folder.png" class="entry-img">
+                  <p>Videos</p>
+                </div>
+              </div>
+              <div id="hannah-folder"  class="file-entry row videos hidden" onclick="openFolder(this)">
+                <div class="file-entry-name row">
+                  <img src="img/folder.png" class="entry-img">
+                  <p>Hannah</p>
+                </div>
+              </div>
+              <div id="alphabets-folder" class="file-entry row hannah hidden" onclick="openFolder(this)">
+                <div class="file-entry-name row">
+                  <img src="img/folder.png" class="entry-img">
+                  <p>Alphabets</p>
+                </div>
+              </div>
+              <div id="one-folder" data-video="1" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>1</p>
+                </div>
+              </div>
+              <div id="two-folder" data-video="2" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>2</p>
+                </div>
+              </div>
+              <div id="three-folder" data-video="3" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>3</p>
+                </div>
+              </div>
+              <div id="four-folder" data-video="4" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>4</p>
+                </div>
+              </div>
+              <div id="five-folder" data-video="5" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>5</p>
+                </div>
+              </div>
+              <div id="six-folder" data-video="6" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>6</p>
+                </div>
+              </div>
+              <div id="seven-folder" data-video="7" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>7</p>
+                </div>
+              </div>
+              <div id="eight-folder" data-video="8" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>8</p>
+                </div>
+              </div>
+              <div id="nine-folder" data-video="9" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>9</p>
+                </div>
+              </div>
+              <div id="ten-folder" data-video="10" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>10</p>
+                </div>
+              </div>
+              <div id="eleven-folder" data-video="11" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>11</p>
+                </div>
+              </div>
+              <div id="twelve-folder" data-video="12" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>12</p>
+                </div>
+              </div>
+              <div id="thirteen-folder" data-video="13" class="file-entry row alphabets hidden" onclick="showVideo(this)">
+                <div class="file-entry-name row">
+                  <img src="img/video.png" class="entry-img">
+                  <p>13</p>
+                </div>
+              </div>
+              <div id="code-folder" class="file-entry row downloads hidden" onclick="openTxt()">
+                <div class="file-entry-name row">
+                  <img src="img/text.png" class="entry-img">
+                  <p>code</p>
+                </div>
+              </div>
+              <div id="birthday_message-folder" class="file-entry row birthday hidden" onclick="openMessage()">
+                <div class="file-entry-name row">
+                  <img src="img/text.png" class="entry-img">
+                  <p>birthday_message</p>
+                </div>
+              </div>
+            </div>
+            <div id="files-txt" class="hidden">
+              <div id="files-txt-heading">
+                <p>code.txt</p>
+              </div>
+              <div id="files-txt-body">
+                <p>ukrckwzvutuujtyeaze</p>
+              </div>
+            </div>
+            <div id="files-message" class="hidden">
+              <div id="files-message-heading">
+                <p>birthday_message.txt</p>
+              </div>
+              <div id="files-message-body">
+                <p>Hi hann!!! First of all, HAAHAH, im writing this rn on white font at 9:43PM HAHAHAH, cuz it’s comfier typing on a laptop, kaso im scared people might see what im typing, so gin-white font ko nala, kaso i cant see what im typing also T.T. anws of course, let’s focus on what’s important. Hehe, you’re 17 naaa that’s cool, one more year and magiging minor hunter ka na MUHAHAHA. Jokee,  happy birthday hannn, my honey loving baneyney, very cute also. Hehe, u said before nga you’ll relax on ur birthday and buy fries HAHAH, i hope u were able to do so. Err idk wut my plan for this is, whether i should send this to you at night or daytime, but meh, morning nalang T.T. i know this is gon be a long puzzle for u HAHAHA. Heheh, u know it’s been a while since we first HARUTAN AHHAHAHAHA, yes it was harutan and im not delusional muhah.and damn u were 15 at the time T.T, that’s crazyyy. tbh im sorry im not a long message typa person, this is supposed to be a birthday letter, but now it sounds like a love letter T.T. YES FROM HERE ON FORTH this shall be a birthday letter.sorry cringe ko masyado, i cant rlly make this formal since uhh, yes naka white font everything i swear, wait imma upload this picture to the gallery rq. Go check it, it’s funneh haha.
+
+Dear Hannah,
+
+Good night,
+(I assume good night kay you’re probably scrambling me for hintsHAHAHAH)
+It’s your 17th birthday today! Well, a girl like you would first think, it’s just like any other day, what’s the point of celebrating it? You might also even think that celebrating your birthday is kind of privileged, and why even have a day focused on you. And I’ll just tell you straight up, you’re wrong (if that’s what you’re thinking)! Celebration isn’t about the handa, the cake, the people who are there with you, but it’s very much all about you. A celebration is a reminder of how grateful we are to have you here in this world, breathing, and helping others nurture and grow. It’s not privileged to celebrate, and it’s not wrong to be the center of today. Like girl, you’ve achieved a lot in 1 year, this serves as appreciation of that too. Just think of birthdays as like, idk, some sort of KMJS special except it’s KMJS - Tunga Edition HAHAHAH. Basta, today is your day! Well was, if it’s already nighttime. Hehe, but first let me ask you some questions, to remember how special today was.
+
+1.) Did you have fun? It’s okay if you didn’t, and it’s good if you did. Having a special day doesn’t mean it has to be fun.
+2.) How did you celebrate your birthday? Did you roam around? Did you eat lots of food? Did you just do your daily routine?
+3.) What gifts did your family give you? How about words of appreciation?
+4.) How many people greeted you at exactly 12am? 
+5.) How many people greeted you in total so far?
+6.) Were there any long messages? Any that you didn’t expect?
+7.) After answering these questions, did it make you feel happy? I know it’s yes hehe, after all, you probably just realized, a lot of people care about you, and wouldn’t mind making this day about you. 
+
+You’re special Hannah, and a special day for a special person is a different kind of special. 
+
+And lastly,
+8.) Were there things you wished had happened today?
+
+If yes, that sucks, but that happens. There are things we wish would just happen, but yet, didn’t. But it doesn’t mean we shouldn’t be brimmed with despair kay oh nooooo. Let’s be hopeful. So for now, real quick, go to your gallery, and please, take a wish. I can’t order a cake to your address kay well, I don’t know how to explain why I asked for money and, err… awkward for your parents… it would be easier if ada hi andelle to help. SIGE NA SOO, go na sa gallery (this phone’s gallery btw, not your phone phone).
+
+Are you done wishing na? Cool right, the power of a creative guy MUHAHAHA.
+
+Well now that you made your wish, usually it’s time to eat the cake. I wish you had cake, but I kinda don’t think you had cake earlier… OH YOUR AUNT TITA’S BAKERY?? Man, i hope you had some. Anyways, I’ve run out of gimmicks na HAHAHA, hehe. I’ll try to talk about the process of it nalang, so ig atleast you’ll now nga someone is willing to do all of this for you, and hopefully, make you feel special atlis, and loved eheh.
+
+I planned this like early June, I really don’t know what to give you. I was broke T.T and like you mentioned kasi nga you’d code ryt. Err… so yeah I coded AHHAHAHA. I thought of the idea of having a phone with clues actually noon pa, but like, I just thought it was too complicated. Well now I did it. I started doing it. I think June 16? I was busy with things eh and I definitely couldn’t do this in Maasin. It took err, three days? Oh wait, today is the fourth day HAHAHHA, yeahhh, the html itself is more than 1000 lines of code HAHAHAHAH. It was challenge. When I said I had fun today, I meant that because I knew through this nga, I love doing things for you HAHAH, and I just finished a part of the app and it made me feel hopeful na I’d finish on time. I thought I couldn’t follow my every plan because it was tough coding, especially a language in G9. I also made this for you because I thought it’s sweet eheheh, and I didn’t think I could give a simple letter lang, so it had to have a journey too, sort of like the journey you took just to be right here, right now, happy and seventeen. Hehehe, oh yeah the pillow sa gallery, who was that guy? I thought he was a guy from Seventeen HAHAHA. 
+
+I’ve been typing na for a while HAHAHA, you saw the screenshot dba, I’m writing this on google docs. Well rn I’m using black font color, but font size is 8px, and now I’m at the second page.
+
+Well, I’d describe how pretty you are and stuffs, but I’ll let present me do that HAHAHAHA, plus this is a birthday letter diba? HAHAHAHA. But I’d like to mention lang about your past birthdays nga I’ve uh passed through (actually your 16th birthday lang HAHAH).
+
+I already planned that early MUHAHAH don’t meeee, I was creative anooo. Well, I had to plan it of course kay I had to deliver you a physical letter somehow sa June. And what better way to do so than just have it right under your nose. HAHAHAHH. I’m sorry I couldn’t do it na, uh it was for many reasons. Number one, I couldn’t really go out without you HAHAHAHAHAHAHAHAHAHAH, that’d be too sus… I did hope others went out too to buy stuffs so I could join and it wouldn’t seem suspicious T.T. Hehehe, anyways at the time, I really wished it had a plot twist or something. I also bought you a gift from Malaysia, but I made sure to buy your family some too. I bought the Victoria’s Secret because I thought perfumes fit you, but like err… now that I think about it, you would’ve appreciated beauty products more T.T. HAHAHAH, I had andelle send it, the pasalubong , I knew I couldn’t have andelle send it to you pag june 21 pa kay like, a lot of things could happen and he might not be able to do so, too risky HAHAHAH, And yeahhh hehehe, I remember, it was a sunflower, that’s why I sorta uhh associated you with a sunflower HAHAHAH. I knew as well you wouldn’t throw the gift box bleh  that’s why it workeddd, hehe it’s all about trust muhaha. And yeah i’m glad it worked out, I hope this worked out too, hehehe.
+
+And, well it’s already 10:30, it’s been almost an hour na, so I’ll probably conclude this too since you said I should sleep early. Errmm, yeahh. I’m sorry by the way, hehe, I couldn’t reply to you at times for this because I was stressed too at some bugs T.T. I swear I ask ai questions and they never work brahh, but my brain to tired to think HAHAHAH.
+
+Anws this is the conclusion na MUHAHA.
+
+Hannah, hehe I love you, and please no everyone does too, I promise you. They won’t show it of course kay they’re not as OA as me HAHAHA, but yeahh. And hehe, more wishes to come. HBD my HBD, again, I love you very much, and I hope you enjoyed today. I can’t wait to meet you soon, mwah.
+
+              
+Sincerely,
+
+Your lovieee hehe
+
+
+P.S.
+Err, I had to have another plottwist, so err, when you enter Tiledom, notice how some of those tiles didn’t really exist? Err, I did play Tiledom to have that HAHAHAH, but I edited some tiles in the 7 tile bar (idk the term sorry). Hehe, take the starting letter of every name of the tile there and combine. For example, if you see the onion, you take the o. Hehe. thank you. That’s my final uhh parting phrase i guess. Bye bye~
+                </p>
+              </div>
+            </div>
+            <div id="files-video" class="hidden">
+              <video id="files-video-video" controls width="90%" height="auto">
+                <source id="video-src" src="vid/vigenere_tutorial.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div id="files-password" class="hidden">
+              <div id="files-password-main">
+                <p>Decrypt:</p>
+                <div id="files-password-field">
+                  <p id="files-password-field-text">Enter password:</p>
+                </div>
+              </div>
+            </div>
+            <div id="files-keyboard" class="hidden">
+              <div class="keyboard">
+                <div class="keyboard-row">
+                  <button class="key" onclick="inputPassword('q')">q</button>
+                  <button class="key" onclick="inputPassword('w')">w</button>
+                  <button class="key" onclick="inputPassword('e')">e</button>
+                  <button class="key" onclick="inputPassword('r')">r</button>
+                  <button class="key" onclick="inputPassword('t')">t</button>
+                  <button class="key" onclick="inputPassword('y')">y</button>
+                  <button class="key" onclick="inputPassword('u')">u</button>
+                  <button class="key" onclick="inputPassword('i')">i</button>
+                  <button class="key" onclick="inputPassword('o')">o</button>
+                  <button class="key" onclick="inputPassword('p')">p</button>
+                </div>
+                <div class="keyboard-row">
+                  <button class="key" onclick="inputPassword('a')">a</button>
+                  <button class="key" onclick="inputPassword('s')">s</button>
+                  <button class="key" onclick="inputPassword('d')">d</button>
+                  <button class="key" onclick="inputPassword('f')">f</button>
+                  <button class="key" onclick="inputPassword('g')">g</button>
+                  <button class="key" onclick="inputPassword('h')">h</button>
+                  <button class="key" onclick="inputPassword('j')">j</button>
+                  <button class="key" onclick="inputPassword('k')">k</button>
+                  <button class="key" onclick="inputPassword('l')">l</button>
+                </div>
+                <div class="keyboard-row">
+                  <button class="key" onclick="inputPassword('z')">z</button>
+                  <button class="key" onclick="inputPassword('x')">x</button>
+                  <button class="key" onclick="inputPassword('c')">c</button>
+                  <button class="key" onclick="inputPassword('v')">v</button>
+                  <button class="key" onclick="inputPassword('b')">b</button>
+                  <button class="key" onclick="inputPassword('n')">n</button>
+                  <button class="key" onclick="inputPassword('m')">m</button>
+                  <button class="key backspace" onclick="deletePassword()">⌫</button>
+                </div>
+                <div class="keyboard-row">
+                  <button class="key space" onclick="inputPassword(' ')">English</button>
+                  <button class="key" onclick="inputPassword('.')">.</button>
+                  <button class="key enter" onclick="checkPassword()">🔎︎</button>
+                </div>
+              </div>
+            </div>
+            <div id="files-error">
+              <p>DCIM can only be accessed through gallery</p>
+            </div>
+          </div>
+        </template>
+      <footer>
+        <div class="row">
+          <div></div>
+          <img src="img/circle.png" class="battery-img" onclick="goHome()">
+          <div></div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  </body>
+  <script src="script/main-scripts.js"></script>
+</html>
