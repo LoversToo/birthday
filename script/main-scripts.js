@@ -169,7 +169,7 @@ function closePreview() {
   const clone = document.getElementsByClassName("clone-preview")[0]
   if (lastThumbnailElement == document.getElementById("birthday-candle")) {
     clone.src = "img/gallery/red.jpg";
-    lastThumbnailElement.src = "img/gallery/red.jpg";
+    lastThumbnailElement.src = "img/gallery/blown-candle.png";
     updateCheckFlag()
   }
   Object.assign(clone.style, {
