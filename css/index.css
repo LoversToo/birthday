@@ -677,6 +677,7 @@ button {
   transform: translateX(-50%);
   opacity: 0;
   transition: 0.5s ease;
+  z-index: 1;
 }
 
 @keyframes waveColorSurge {
