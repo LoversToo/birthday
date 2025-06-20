@@ -132,11 +132,11 @@ function openPreview(imgElement) {
   for (let i = 0; i < icons.length; i++) {
     if (hidden_icons.includes(icons[i])) {
       subtract += 1;
-    }
+    } 
     if (icons[i] === imgElement) {
       galleryText.innerHTML = `${i + 1 - subtract}/${icons.length - hidden_icons.length}`;
-    break;
     }
+    icons[i].style.pointerEvents = "none";
   }
 
   galleryBack.onclick = closePreview
@@ -175,10 +175,14 @@ function closePreview() {
   galleryText.innerHTML = "All Photos"
   galleryBack.onclick = goHome
   const clone = document.getElementsByClassName("clone-preview")[0]
+  const icons = document.getElementsByClassName("gallery-icon");
   if (lastThumbnailElement == document.getElementById("birthday-candle")) {
     clone.src = "img/gallery/blown-candle.png";
     lastThumbnailElement.src = "img/gallery/blown-candle.png";
     updateCheckFlag()
+  }
+  for (let i = 0; i < icons.length; i++) {
+    icons[i].style.pointerEvents = "auto";
   }
   Object.assign(clone.style, {
     top:    "40px",
